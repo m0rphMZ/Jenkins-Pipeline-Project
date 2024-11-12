@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Bloc.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">5ARCTIC6-G2-foyer</a> &gt; <a href="index.source.html" class="el_package">tn.esprit.spring.dao.entities</a> &gt; <span class="el_source">Bloc.java</span></div><h1>Bloc.java</h1><pre class="source lang-java linenums">package tn.esprit.spring.dao.entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = &quot;T_BLOC&quot;)
+@Getter
+<span class="pc" id="L15">@Setter</span>
+<span class="nc" id="L16">@NoArgsConstructor</span>
+<span class="fc" id="L17">@AllArgsConstructor</span>
+<span class="nc" id="L18">@Builder</span>
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Bloc implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<span class="nc" id="L23">    long idBloc;</span>
+<span class="fc" id="L24">    String nomBloc;</span>
+<span class="nc" id="L25">    long capaciteBloc;</span>
+    @ManyToOne
+    @JsonIgnore
+<span class="nc" id="L28">    Foyer foyer;</span>
+<span class="pc" id="L29">    @OneToMany(mappedBy = &quot;bloc&quot;, fetch = FetchType.EAGER)</span>
+    @JsonIgnore
+<span class="fc" id="L31">    List&lt;Chambre&gt; chambres= new ArrayList&lt;&gt;();</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

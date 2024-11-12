@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SpringDocConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">5ARCTIC6-G2-foyer</a> &gt; <a href="index.source.html" class="el_package">tn.esprit.spring.config</a> &gt; <span class="el_source">SpringDocConfig.java</span></div><h1>SpringDocConfig.java</h1><pre class="source lang-java linenums">package tn.esprit.spring.config;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import org.springdoc.core.models.GroupedOpenApi;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+<span class="nc" id="L11">public class SpringDocConfig {</span>
+
+    @Bean
+    public OpenAPI springShopOpenAPI() {
+<span class="nc" id="L15">        return new OpenAPI()</span>
+<span class="nc" id="L16">                .info(infoAPI());</span>
+    }
+
+    public Info infoAPI() {
+<span class="nc" id="L20">        return new Info().title(&quot;Gestion d'un foyer&quot;)</span>
+<span class="nc" id="L21">                .description(&quot;TP étude de cas 2023-2024&quot;)</span>
+<span class="nc" id="L22">                .contact(contactAPI());</span>
+    }
+
+    public Contact contactAPI() {
+<span class="nc" id="L26">        Contact contact = new Contact().name(&quot;Sirine NAIFAR&quot;)</span>
+<span class="nc" id="L27">                .email(&quot;sirine.naifer@esprit.tn&quot;)</span>
+<span class="nc" id="L28">                .url(&quot;https://www.linkedin.com/in/sirinenaifar/&quot;);</span>
+<span class="nc" id="L29">        return contact;</span>
+    }
+
+    @Bean
+    public GroupedOpenApi allPublicApi() {
+<span class="nc" id="L34">        return GroupedOpenApi.builder()</span>
+<span class="nc" id="L35">                .group(&quot;All Management API&quot;)</span>
+<span class="nc" id="L36">                .pathsToMatch(&quot;/**&quot;)</span>
+<span class="nc" id="L37">                .pathsToExclude(&quot;**&quot;)</span>
+<span class="nc" id="L38">                .build();</span>
+    }
+
+    @Bean
+    public GroupedOpenApi blocPublicApi() {
+<span class="nc" id="L43">        return GroupedOpenApi.builder()</span>
+<span class="nc" id="L44">                .group(&quot;Only Bloc Management API&quot;)</span>
+<span class="nc" id="L45">                .pathsToMatch(&quot;/bloc/**&quot;)</span>
+<span class="nc" id="L46">                .pathsToExclude(&quot;**&quot;)</span>
+<span class="nc" id="L47">                .build();</span>
+    }
+
+    @Bean
+    public GroupedOpenApi chambrePublicApi() {
+<span class="nc" id="L52">        return GroupedOpenApi.builder()</span>
+<span class="nc" id="L53">                .group(&quot;Only Chambre Management API&quot;)</span>
+<span class="nc" id="L54">                .pathsToMatch(&quot;/chambre/**&quot;)</span>
+<span class="nc" id="L55">                .pathsToExclude(&quot;**&quot;)</span>
+<span class="nc" id="L56">                .build();</span>
+    }
+
+    @Bean
+    public GroupedOpenApi etudiantPublicApi() {
+<span class="nc" id="L61">        return GroupedOpenApi.builder()</span>
+<span class="nc" id="L62">                .group(&quot;Only Etudiant Management API&quot;)</span>
+<span class="nc" id="L63">                .pathsToMatch(&quot;/etudiant/**&quot;)</span>
+<span class="nc" id="L64">                .pathsToExclude(&quot;**&quot;)</span>
+<span class="nc" id="L65">                .build();</span>
+    }
+
+    @Bean
+    public GroupedOpenApi foyerPublicApi() {
+<span class="nc" id="L70">        return GroupedOpenApi.builder()</span>
+<span class="nc" id="L71">                .group(&quot;Only Foyer Management API&quot;)</span>
+<span class="nc" id="L72">                .pathsToMatch(&quot;/foyer/**&quot;)</span>
+<span class="nc" id="L73">                .pathsToExclude(&quot;**&quot;)</span>
+<span class="nc" id="L74">                .build();</span>
+    }
+
+    @Bean
+    public GroupedOpenApi reservationPublicApi() {
+<span class="nc" id="L79">        return GroupedOpenApi.builder()</span>
+<span class="nc" id="L80">                .group(&quot;Only Reservation Management API&quot;)</span>
+<span class="nc" id="L81">                .pathsToMatch(&quot;/reservation/**&quot;)</span>
+<span class="nc" id="L82">                .pathsToExclude(&quot;**&quot;)</span>
+<span class="nc" id="L83">                .build();</span>
+    }
+
+    @Bean
+    public GroupedOpenApi universitePublicApi() {
+<span class="nc" id="L88">        return GroupedOpenApi.builder()</span>
+<span class="nc" id="L89">                .group(&quot;Only University Management API&quot;)</span>
+<span class="nc" id="L90">                .pathsToMatch(&quot;/universite/**&quot;)</span>
+<span class="nc" id="L91">                .pathsToExclude(&quot;**&quot;)</span>
+<span class="nc" id="L92">                .build();</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

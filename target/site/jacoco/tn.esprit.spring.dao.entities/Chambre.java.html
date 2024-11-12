@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Chambre.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">5ARCTIC6-G2-foyer</a> &gt; <a href="index.source.html" class="el_package">tn.esprit.spring.dao.entities</a> &gt; <span class="el_source">Chambre.java</span></div><h1>Chambre.java</h1><pre class="source lang-java linenums">package tn.esprit.spring.dao.entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = &quot;T_CHAMBRE&quot;)
+@Getter
+<span class="pc" id="L15">@Setter</span>
+<span class="fc" id="L16">@NoArgsConstructor</span>
+<span class="nc" id="L17">@AllArgsConstructor</span>
+<span class="nc" id="L18">@Builder</span>
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Chambre implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<span class="nc" id="L23">    long idChambre;</span>
+    @Column(unique = true)
+<span class="nc" id="L25">    long numeroChambre;</span>
+    @Enumerated(EnumType.STRING)
+<span class="nc" id="L27">    TypeChambre typeC;</span>
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+<span class="nc" id="L30">    Bloc bloc;</span>
+<span class="pc" id="L31">    @OneToMany</span>
+<span class="nc" id="L32">    List&lt;Reservation&gt; reservations= new ArrayList&lt;&gt;();</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

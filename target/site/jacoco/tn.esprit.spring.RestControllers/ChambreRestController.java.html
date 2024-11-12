@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ChambreRestController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">5ARCTIC6-G2-foyer</a> &gt; <a href="index.source.html" class="el_package">tn.esprit.spring.RestControllers</a> &gt; <span class="el_source">ChambreRestController.java</span></div><h1>ChambreRestController.java</h1><pre class="source lang-java linenums">package tn.esprit.spring.RestControllers;
+
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import tn.esprit.spring.dao.entities.Chambre;
+import tn.esprit.spring.dao.entities.TypeChambre;
+import tn.esprit.spring.services.Chambre.IChambreService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;chambre&quot;)
+<span class="nc" id="L13">@AllArgsConstructor</span>
+public class ChambreRestController {
+    IChambreService service;
+
+    @PostMapping(&quot;addOrUpdate&quot;)
+    Chambre addOrUpdate(@RequestBody Chambre c) {
+<span class="nc" id="L19">        return service.addOrUpdate(c);</span>
+    }
+
+    @GetMapping(&quot;findAll&quot;)
+    List&lt;Chambre&gt; findAll() {
+<span class="nc" id="L24">        return service.findAll();</span>
+    }
+
+    @GetMapping(&quot;findById&quot;)
+    Chambre findById(@RequestParam long id) {
+<span class="nc" id="L29">        return service.findById(id);</span>
+    }
+
+    @DeleteMapping(&quot;delete&quot;)
+    void delete(@RequestBody Chambre c) {
+<span class="nc" id="L34">        service.delete(c);</span>
+<span class="nc" id="L35">    }</span>
+
+    @DeleteMapping(&quot;deleteById&quot;)
+    void deleteById(@RequestParam long id) {
+<span class="nc" id="L39">        service.deleteById(id);</span>
+<span class="nc" id="L40">    }</span>
+
+    @GetMapping(&quot;getChambresParNomBloc&quot;)
+    public List&lt;Chambre&gt; getChambresParNomBloc(@RequestParam String nomBloc) {
+<span class="nc" id="L44">        return service.getChambresParNomBloc(nomBloc);</span>
+    }
+
+    @GetMapping(&quot;nbChambreParTypeEtBloc&quot;)
+    long nbChambreParTypeEtBloc(@RequestParam TypeChambre type, @RequestParam long idBloc) {
+<span class="nc" id="L49">        return service.nbChambreParTypeEtBloc(type, idBloc);</span>
+    }
+
+    @GetMapping(&quot;getChambresNonReserveParNomFoyerEtTypeChambre&quot;)
+    List&lt;Chambre&gt; getChambresNonReserveParNomFoyerEtTypeChambre(@RequestParam String nomFoyer,@RequestParam TypeChambre type){
+<span class="nc" id="L54">        return service.getChambresNonReserveParNomFoyerEtTypeChambre(nomFoyer,type);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FoyerService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">5ARCTIC6-G2-foyer</a> &gt; <a href="index.source.html" class="el_package">tn.esprit.spring.services.Foyer</a> &gt; <span class="el_source">FoyerService.java</span></div><h1>FoyerService.java</h1><pre class="source lang-java linenums">package tn.esprit.spring.services.Foyer;
+
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import tn.esprit.spring.dao.entities.*;
+import tn.esprit.spring.dao.Repositories.BlocRepository;
+import tn.esprit.spring.dao.Repositories.FoyerRepository;
+import tn.esprit.spring.dao.Repositories.UniversiteRepository;
+
+import java.util.List;
+
+@Service
+<span class="nc" id="L13">@AllArgsConstructor</span>
+public class FoyerService implements IFoyerService {
+    FoyerRepository repo;
+    UniversiteRepository universiteRepository;
+    BlocRepository blocRepository;
+
+    @Override
+    public Foyer addOrUpdate(Foyer f) {
+<span class="nc" id="L21">        return repo.save(f);</span>
+    }
+
+    @Override
+    public List&lt;Foyer&gt; findAll() {
+<span class="nc" id="L26">        return repo.findAll();</span>
+    }
+
+    @Override
+    public Foyer findById(long id) {
+<span class="nc" id="L31">        return repo.findById(id).get();</span>
+    }
+
+    @Override
+    public void deleteById(long id) {
+<span class="nc" id="L36">        repo.deleteById(id);</span>
+<span class="nc" id="L37">    }</span>
+
+    @Override
+    public void delete(Foyer f) {
+<span class="nc" id="L41">        repo.delete(f);</span>
+<span class="nc" id="L42">    }</span>
+
+    @Override
+    public Universite affecterFoyerAUniversite(long idFoyer, String nomUniversite) {
+<span class="nc" id="L46">        Foyer f = findById(idFoyer); // Child</span>
+<span class="nc" id="L47">        Universite u = universiteRepository.findByNomUniversite(nomUniversite); // Parent</span>
+        // On affecte le child au parent
+<span class="nc" id="L49">        u.setFoyer(f);</span>
+<span class="nc" id="L50">        return universiteRepository.save(u);</span>
+    }
+
+    @Override
+    public Universite desaffecterFoyerAUniversite(long idUniversite) {
+<span class="nc" id="L55">        Universite u = universiteRepository.findById(idUniversite).get(); // Parent</span>
+<span class="nc" id="L56">        u.setFoyer(null);</span>
+<span class="nc" id="L57">        return universiteRepository.save(u);</span>
+    }
+
+    @Override
+    public Foyer ajouterFoyerEtAffecterAUniversite(Foyer foyer, long idUniversite) {
+        // Récuperer la liste des blocs avant de faire l'ajout
+<span class="nc" id="L63">        List&lt;Bloc&gt; blocs = foyer.getBlocs();</span>
+        // Foyer est le child et universite est parent
+<span class="nc" id="L65">        Foyer f = repo.save(foyer);</span>
+<span class="nc" id="L66">        Universite u = universiteRepository.findById(idUniversite).get();</span>
+        // Foyer est le child et bloc est le parent
+        //On affecte le child au parent
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        for (Bloc bloc : blocs) {</span>
+<span class="nc" id="L70">            bloc.setFoyer(foyer);</span>
+<span class="nc" id="L71">            blocRepository.save(bloc);</span>
+<span class="nc" id="L72">        }</span>
+<span class="nc" id="L73">        u.setFoyer(f);</span>
+<span class="nc" id="L74">        return universiteRepository.save(u).getFoyer();</span>
+    }
+
+    @Override
+    public Foyer ajoutFoyerEtBlocs(Foyer foyer) {
+        //Foyer child / Bloc parent
+        //Objet foyer = attribut objet foyer + les blocs associés
+//        Foyer f = repo.save(foyer);
+//        for (Bloc b : foyer.getBlocs()) {
+//            b.setFoyer(f);
+//            blocRepository.save(b);
+//        }
+//        return f;
+        //-----------------------------------------
+<span class="nc" id="L88">        List&lt;Bloc&gt; blocs = foyer.getBlocs();</span>
+<span class="nc" id="L89">        foyer = repo.save(foyer);</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        for (Bloc b : blocs) {</span>
+<span class="nc" id="L91">            b.setFoyer(foyer);</span>
+<span class="nc" id="L92">            blocRepository.save(b);</span>
+<span class="nc" id="L93">        }</span>
+<span class="nc" id="L94">        return foyer;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

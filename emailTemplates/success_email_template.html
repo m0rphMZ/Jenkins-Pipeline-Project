@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Success Notification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        p.footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+<h2>Pipeline Build Notification</h2>
+<p>The pipeline has completed <strong>successfully</strong>.</p>
+<table>
+    <tr>
+        <th>Attribute</th>
+        <th>Details</th>
+    </tr>
+    <tr>
+        <td style="font-weight: bold;">Build URL</td>
+        <td><a href="${BUILD_URL}" target="_blank" style="color: #1A73E8;">${BUILD_URL}</a></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold;">Project</td>
+        <td>${PROJECT_NAME}</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold;">Build Number</td>
+        <td>#${BUILD_NUMBER}</td>
+    </tr>
+</table>
+
+<h3>Summary of Deployed Services</h3>
+<table>
+    <tr>
+        <th>Service</th>
+        <th>URL</th>
+    </tr>
+    <tr>
+        <td>SonarQube</td>
+        <td><a href="http://192.168.56.50:9000" target="_blank">http://192.168.56.50:9000</a></td>
+    </tr>
+    <tr>
+        <td>Nexus</td>
+        <td><a href="http://192.168.56.50:8081" target="_blank">http://192.168.56.50:8081</a></td>
+    </tr>
+    <tr>
+        <td>Prometheus</td>
+        <td><a href="http://192.168.56.50:9090" target="_blank">http://192.168.56.50:9090</a></td>
+    </tr>
+    <tr>
+        <td>Grafana</td>
+        <td><a href="http://192.168.56.50:3000" target="_blank">http://192.168.56.50:3000</a></td>
+    </tr>
+</table>
+
+<p class="footer">This is an automated message. Please do not reply.</p>
+</body>
+</html>

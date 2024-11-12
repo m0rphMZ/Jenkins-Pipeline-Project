@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build Failure Notification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+    h2 {
+      color: #F44336;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    p.footer {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+<h2>Pipeline Build Notification</h2>
+<p>The pipeline has completed <strong>with failures</strong>.</p>
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Details</th>
+  </tr>
+  <tr>
+    <td style="font-weight: bold;">Build URL</td>
+    <td><a href="${BUILD_URL}" target="_blank" style="color: #1A73E8;">${BUILD_URL}</a></td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold;">Project</td>
+    <td>${PROJECT_NAME}</td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold;">Build Number</td>
+    <td>#${BUILD_NUMBER}</td>
+  </tr>
+</table>
+<p class="footer">This is an automated message. Please do not reply.</p>
+</body>
+</html>

@@ -1,0 +1,45 @@
+version: "3.8"  # Specifies the Docker Compose file format version
+
+services:
+  mysqldb:  # MySQL database service
+    image: mysql:8.3.0  # Uses MySQL version 8.3.0 image
+    restart: unless-stopped  # Automatically restarts unless stopped manually
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes  # Allows empty root password (for development purposes)
+      - MYSQL_DATABASE=foyer  # Ensures 'foyer' database is created at startup
+    ports:
+      - "3308:3306"  # Maps host port 3308 to container's MySQL port 3306
+    volumes:
+      - db:/var/lib/mysql  # Persists MySQL data in a Docker volume
+    healthcheck:  # Health check for MySQL service
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  app-timesheet:  # Application service
+    depends_on:
+      mysqldb:
+        condition: service_healthy  # Ensures the app starts only after MySQL is healthy
+    image: mhmood/5arctic6-g2-foyer:0.0.1  # Application Docker image
+    restart: on-failure  # Restarts the container on failure
+    ports:
+      - "8082:8082"  # Maps host port 8082 to container port 8082
+    environment:  # Environment variables for Spring Boot application
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url": "jdbc:mysql://mysqldb:3306/foyer?createDatabaseIfNotExist=true",
+        "spring.datasource.username": "root",
+        "spring.datasource.password": null,  # Ensure secure credentials in production
+        "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL8Dialect",
+        "spring.jpa.hibernate.ddl-auto": "update"
+      }'
+    stdin_open: true  # Keeps stdin open for interactive debugging
+    tty: true  # Allocates a pseudo-TTY for the container
+    logging:  # Configures logging
+      driver: "json-file"
+      options:
+        max-size: "10m"  # Maximum log file size
+        max-file: "3"  # Maximum number of log files retained
+
+volumes:
+  db:  # Defines a named volume for MySQL data persistence

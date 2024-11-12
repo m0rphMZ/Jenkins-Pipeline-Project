@@ -1,0 +1,19 @@
+apiVersion: apps/v1  # Specifies the API version for the Deployment resource
+kind: Deployment     # Defines the kind of Kubernetes resource (Deployment)
+metadata:
+  name: foyer-deployment  # The name of the Deployment
+spec:
+  replicas: 1  # Number of desired pod replicas
+  selector:
+    matchLabels:
+      app: foyer  # Label selector for pods targeted by this Deployment
+  template:
+    metadata:
+      labels:
+        app: foyer  # Labels assigned to the pods for identification
+    spec:
+      containers:
+        - name: foyer  # Name of the container in the pod
+          image: mhmood/foyer:0.0.1  # Docker image used for the container
+          ports:
+            - containerPort: 2000  # Exposes this port from the container
